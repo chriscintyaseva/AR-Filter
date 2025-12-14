@@ -1,6 +1,6 @@
 // --- KONFIGURASI ---
-const API_KEY = 'AIzaSyBSAXWzuShCOiowAcWU4Nb5B0fhtnzNGC4'; // Ganti dengan API Key Anda
-const SPREADSHEET_ID = '1uZ9D5mx95vw40o7-1H5czIXAGgIAhoUF5muEj8BkxGw'; // Ganti dengan Spreadsheet ID Anda
+const API_KEY = 'AIzaSyBSAXWzuShCOiowAcWU4Nb5B0fhtnzNGC4'; 
+const SPREADSHEET_ID = '1uZ9D5mx95vw40o7-1H5czIXAGgIAhoUF5muEj8BkxGw'; 
 const RANGE = 'Sheet1!A:D'; 
 
 // --- ELEMENT REFERENCES ---
@@ -246,4 +246,5 @@ function onResults(results) {
     }
     
     canvasCtx.restore();
+
 }
