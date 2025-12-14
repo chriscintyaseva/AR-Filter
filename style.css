@@ -1,0 +1,208 @@
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #1a1a1a;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Video & Canvas container */
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay Vignette untuk fokus ke wajah */
+.vignette {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.6) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* --- Start Screen --- */
+.start-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  transition: opacity 0.5s ease;
+}
+
+.start-content {
+  text-align: center;
+  color: white;
+  animation: fadeInUp 0.8s ease;
+}
+
+.start-content h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+}
+
+.start-button {
+  background: var(--primary-gradient);
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(118, 75, 162, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 20px;
+}
+
+.start-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px rgba(118, 75, 162, 0.6);
+}
+
+/* --- UI Components (Glassmorphism) --- */
+.game-ui {
+  position: absolute;
+  padding: 15px 25px;
+  border-radius: 16px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  color: white;
+  text-align: center;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  transition: transform 0.1s ease-out;
+  z-index: 10;
+  display: none; /* Hidden by default */
+}
+
+.question-box {
+  font-weight: 700;
+  font-size: 1.5rem;
+  width: 300px;
+  text-shadow: var(--text-shadow);
+  border-bottom: 4px solid #f6d365; /* Accent color */
+}
+
+.answer-box {
+  font-weight: 600;
+  font-size: 1.1rem;
+  min-width: 140px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Indikator Arah */
+.answer-tag {
+  font-size: 0.8rem;
+  background: rgba(0,0,0,0.5);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.answer-box.left { border-left: 4px solid #4facfe; }
+.answer-box.right { border-right: 4px solid #ff758c; }
+
+/* --- Notification / Feedback --- */
+.feedback-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  padding: 30px 50px;
+  border-radius: 20px;
+  color: white;
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 15;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.feedback-overlay.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.feedback-overlay.correct { border-color: #00b09b; color: #00b09b; box-shadow: 0 0 30px rgba(0, 176, 155, 0.4); }
+.feedback-overlay.wrong { border-color: #ff5f6d; color: #ff5f6d; box-shadow: 0 0 30px rgba(255, 95, 109, 0.4); }
+
+/* --- Logos --- */
+.logo-container {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px 25px;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  z-index: 5;
+}
+
+.logo-container img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* --- Score Badge --- */
+.score-badge {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(5px);
+  border: 1px solid var(--glass-border);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  z-index: 5;
+}
+
+/* Keyframes */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Head Quiz - Modern Style</title>
+  
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <video id="input_video" autoplay style="display: none;"></video>
+  <canvas id="output_canvas"></canvas>
+  
+  <div class="vignette"></div>
+
+  <div class="logo-container">
+    <img src="logopens.png" alt="Logo PENS">
+    <img src="logotrm.png" alt="Logo TRM">
+  </div>
+
+  <div class="score-badge" id="scoreDisplay">Score: 0</div>
+
+  <div class="game-ui question-box" id="questionBox">Loading...</div>
+  <div class="game-ui answer-box left" id="answerLeft"><span class="answer-tag">◀ Kiri</span><span id="textLeft">A</span></div>
+  <div class="game-ui answer-box right" id="answerRight"><span id="textRight">B</span><span class="answer-tag">Kanan ▶</span></div>
+
+  <div class="feedback-overlay" id="feedbackOverlay">
+    <div id="feedbackIcon"></div>
+    <div id="feedbackText">Benar!</div>
+  </div>
+
+  <div class="start-screen" id="startScreen">
+    <div class="start-content">
+      <h1>Head Quiz Challenge</h1>
+      <p style="font-size: 1.2rem; opacity: 0.8;">Gerakkan kepala ke kiri atau kanan untuk memilih jawaban.</p>
+      <button class="start-button" id="startButton">Mulai Quiz 🚀</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
